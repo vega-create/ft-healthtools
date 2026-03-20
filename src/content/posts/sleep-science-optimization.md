@@ -14,8 +14,6 @@ faq:
   - q: "How often is this health guide updated?"
     a: "We regularly update our guides with the latest information and best practices. Bookmark this page and check back for the most current health recommendations."
 ---
-
-<div style="margin: 2rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;"><div style="padding: 0.6rem; background: #dbeafe; border-radius: 8px; text-align: center; border: 1px solid #93c5fd;"><div style="font-weight: 800; color: #1e40af; font-size: 1rem;">50%</div><div style="font-size: 0.65rem; color: #6b7280;">Light Sleep</div></div><div style="padding: 0.6rem; background: #1e293b; border-radius: 8px; text-align: center;"><div style="font-weight: 800; color: #60a5fa; font-size: 1rem;">20%</div><div style="font-size: 0.65rem; color: #94a3b8;">Deep/SWS</div></div><div style="padding: 0.6rem; background: #ede9fe; border-radius: 8px; text-align: center; border: 1px solid #c4b5fd;"><div style="font-weight: 800; color: #6d28d9; font-size: 1rem;">25%</div><div style="font-size: 0.65rem; color: #6b7280;">REM</div></div><div style="padding: 0.6rem; background: #f1f5f9; border-radius: 8px; text-align: center; border: 1px solid #e2e8f0;"><div style="font-weight: 800; color: #94a3b8; font-size: 1rem;">5%</div><div style="font-size: 0.65rem; color: #6b7280;">Awake</div></div></div>
 Sleep is the single most effective thing you can do for your health. Quality sleep improves cognitive function, physical recovery, immune response, and emotional regulation.
 
 ## Sleep Cycles Explained

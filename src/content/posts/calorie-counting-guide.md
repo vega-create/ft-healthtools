@@ -14,8 +14,6 @@ faq:
   - q: "How often is this health guide updated?"
     a: "We regularly update our guides with the latest information and best practices. Bookmark this page and check back for the most current health recommendations."
 ---
-
-<div style="margin: 2rem 0; background: #f8fafc; border-radius: 12px; padding: 1.2rem; border: 1px solid #e2e8f0;"><div style="font-weight: 700; font-size: 0.85rem; color: #334155; margin-bottom: 0.8rem;">Daily Calorie Needs (Average Adult)</div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 50%; background: #94a3b8; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Sedentary: 1,800</div></div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 66%; background: #60a5fa; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Moderate: 2,200</div></div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 83%; background: #f59e0b; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Active: 2,600</div></div><div style="display: flex; align-items: center; gap: 0.5rem;"><div style="width: 100%; background: #ef4444; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Very Active: 3,000</div></div></div>
 Calorie counting is one of the most straightforward approaches to managing weight. Understanding your energy balance helps you make informed food choices.
 
 ## Energy Balance Basics

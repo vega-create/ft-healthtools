@@ -14,8 +14,6 @@ faq:
   - q: "How often is this health guide updated?"
     a: "We regularly update our guides with the latest information and best practices. Bookmark this page and check back for the most current health recommendations."
 ---
-
-<div style="margin: 2rem 0; background: #eff6ff; border-radius: 12px; padding: 1.2rem; border: 1px solid #bfdbfe;"><div style="font-weight: 700; font-size: 0.85rem; color: #1e40af; margin-bottom: 0.8rem;">Daily Water Intake Recommendation</div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 50%; background: #60a5fa; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Sedentary: 2.0 L</div></div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 70%; background: #3b82f6; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Moderate: 2.7 L</div></div><div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;"><div style="width: 90%; background: #2563eb; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Active: 3.7 L</div></div><div style="display: flex; align-items: center; gap: 0.5rem;"><div style="width: 100%; background: #1e40af; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: white;">Hot climate: +0.5-1 L</div></div></div>
 Staying hydrated is essential for every bodily function, from temperature regulation to nutrient transport. But the common advice of eight glasses a day is oversimplified.
 
 ## Factors Affecting Needs

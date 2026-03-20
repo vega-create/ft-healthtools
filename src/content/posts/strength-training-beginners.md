@@ -14,8 +14,6 @@ faq:
   - q: "How often is this health guide updated?"
     a: "We regularly update our guides with the latest information and best practices. Bookmark this page and check back for the most current health recommendations."
 ---
-
-<div style="margin: 2rem 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;"><div style="padding: 0.7rem; background: #fecaca; border-radius: 10px; text-align: center; border: 1px solid #fca5a5;"><div style="font-weight: 800; color: #dc2626; font-size: 1rem;">1-5</div><div style="font-size: 0.7rem; color: #6b7280;">reps</div><div style="font-size: 0.65rem; color: #dc2626; font-weight: 600;">Strength</div></div><div style="padding: 0.7rem; background: #dbeafe; border-radius: 10px; text-align: center; border: 1px solid #93c5fd;"><div style="font-weight: 800; color: #2563eb; font-size: 1rem;">8-12</div><div style="font-size: 0.7rem; color: #6b7280;">reps</div><div style="font-size: 0.65rem; color: #2563eb; font-weight: 600;">Hypertrophy</div></div><div style="padding: 0.7rem; background: #dcfce7; border-radius: 10px; text-align: center; border: 1px solid #86efac;"><div style="font-weight: 800; color: #166534; font-size: 1rem;">15-20+</div><div style="font-size: 0.7rem; color: #6b7280;">reps</div><div style="font-size: 0.65rem; color: #166534; font-weight: 600;">Endurance</div></div></div>
 Strength training is one of the most beneficial forms of exercise at any age. It builds muscle, strengthens bones, boosts metabolism, and improves daily function.
 
 ## Benefits Beyond Muscle

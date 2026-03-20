@@ -14,8 +14,6 @@ faq:
   - q: "How often is this health guide updated?"
     a: "We regularly update our guides with the latest information and best practices. Bookmark this page and check back for the most current health recommendations."
 ---
-
-<div style="margin: 2rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;"><div style="padding: 0.6rem; background: #dbeafe; border-radius: 8px; text-align: center; border: 1px solid #93c5fd;"><div style="font-weight: 800; color: #1e40af; font-size: 1rem;">&lt;18.5</div><div style="font-size: 0.65rem; color: #6b7280;">Under</div></div><div style="padding: 0.6rem; background: #dcfce7; border-radius: 8px; text-align: center; border: 1px solid #86efac;"><div style="font-weight: 800; color: #166534; font-size: 1rem;">18.5-24.9</div><div style="font-size: 0.65rem; color: #6b7280;">Normal</div></div><div style="padding: 0.6rem; background: #fef3c7; border-radius: 8px; text-align: center; border: 1px solid #fde68a;"><div style="font-weight: 800; color: #92400e; font-size: 1rem;">25-29.9</div><div style="font-size: 0.65rem; color: #6b7280;">Over</div></div><div style="padding: 0.6rem; background: #fecaca; border-radius: 8px; text-align: center; border: 1px solid #fca5a5;"><div style="font-weight: 800; color: #dc2626; font-size: 1rem;">30+</div><div style="font-size: 0.65rem; color: #6b7280;">Obese</div></div></div>
 Body Mass Index (BMI) is one of the most widely used health screening tools. It provides a quick estimate of whether your weight falls within a healthy range for your height.
 
 ## How BMI Is Calculated
