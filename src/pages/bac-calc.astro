@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import BacCalc from '../components/tools/BacCalc';
+
+const faq = [
+  { q: "How is BAC estimated?", a: "The tool uses the Widmark formula: BAC = (alcohol in grams / (body weight in grams × r)) × 100 − (0.015 × hours). Here r is a distribution ratio, about 0.68 for men and 0.55 for women. It is a rough population-average estimate and cannot reflect your actual blood alcohol level." },
+  { q: "Can I use this to decide whether I am safe to drive?", a: "No. Never use this or any online estimate to decide whether it is safe to drive. The calculation ignores many personal factors and can be far from your real BAC. If you have consumed any alcohol, do not drive — arrange a taxi, rideshare, designated driver, or public transport." },
+  { q: "Why is the estimate so imprecise?", a: "Actual BAC depends on food in your stomach, drinking speed, medications, liver function, body composition, hydration, genetics, and more. The Widmark formula uses only weight, sex, drinks, and time, so it can easily be off by a wide margin in either direction." },
+  { q: "How fast does the body eliminate alcohol?", a: "On average the body clears alcohol at roughly 0.015 BAC per hour, which is about one standard drink per hour. This rate cannot be sped up by coffee, cold showers, or exercise; only time lowers BAC." },
+  { q: "What counts as one standard drink?", a: "A US standard drink contains about 14 grams of pure alcohol, equal to roughly 12 oz of regular beer, 5 oz of wine, or 1.5 oz of distilled spirits. Servings poured at home are often larger than one standard drink, which leads people to underestimate their intake." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="BAC Calculator" description="Estimate blood alcohol content." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">BAC Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">BAC Calculator</h1>
     <BacCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the BAC Calculator Works</h2>
+      <p>Blood Alcohol Content (BAC) expresses the percentage of alcohol in your bloodstream. This calculator gives a rough estimate from the number of standard drinks, your body weight, your sex, and the time elapsed since your first drink. It is a general educational illustration of how those factors interact, not a measurement of your actual intoxication. Only a breathalyzer or blood test can determine a real BAC.</p>
+
+      <h2>The Formula</h2>
+      <p>It applies the Widmark equation: <code>BAC = (A / (W × r)) × 100 − (0.015 × H)</code>, where <code>A</code> is grams of alcohol consumed, <code>W</code> is body weight in grams, <code>r</code> is the body-water distribution ratio (about 0.68 for men, 0.55 for women), and <code>H</code> is hours since drinking began. The final term subtracts the alcohol your body has metabolized at roughly 0.015 BAC per hour.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Any estimate produced here should be treated as approximate and probably inaccurate for you personally, because it omits food, drinking pace, medication, genetics, and liver health. A low estimated number does not mean you are unimpaired, and the real figure could be considerably higher. Impairment of judgment, reaction time, and coordination can begin well below any legal threshold.</p>
+
+      <h2>When to Use It — and a Critical Safety Warning</h2>
+      <p>This tool is for general curiosity and education only. It is an estimate only and must never be used to decide whether it is safe to drive or operate machinery. If you have had any alcohol, do not drive; use a taxi, rideshare, designated driver, or public transport instead. These results are not medical or legal advice. If you are concerned about your drinking or someone's safety, contact a healthcare professional or local emergency services.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import BodyFat from '../components/tools/BodyFat';
+
+const faq = [
+  { q: "How accurate is the US Navy body fat method?", a: "The US Navy circumference method is typically accurate to within about 3-4% of a DEXA scan for most people. Accuracy drops for very lean athletes and for people carrying weight unusually (for example, a large waist from bloating rather than fat). It is a screening estimate, not a clinical measurement." },
+  { q: "Where exactly do I measure my waist and neck?", a: "Measure the neck just below the larynx (Adam's apple) with the tape sloping slightly downward to the front. Measure the waist at the navel for men, and at the narrowest point for women. Women also measure the hips at the widest point. Keep the tape snug but not compressing the skin, and measure without holding your breath." },
+  { q: "What is a healthy body fat percentage?", a: "For men, roughly 10-20% is generally considered fit, with 2-5% being essential fat. For women, roughly 18-28% is generally considered fit, with 10-13% being essential fat. These ranges shift with age and individual health goals." },
+  { q: "Why do men and women use different formulas?", a: "Women naturally carry more essential fat, much of it around the hips, so the female equation adds the hip measurement to improve accuracy. Using the male formula on a woman (or vice versa) will produce a misleading result." },
+  { q: "How often should I re-measure?", a: "Every 2-4 weeks is enough to track a trend. Measure at the same time of day under the same conditions (ideally in the morning, before eating) because hydration and food can shift circumference readings from day to day." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Body Fat Calculator" description="Estimate body fat percentage using the US Navy method." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Body Fat Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Body Fat Calculator</h1>
     <BodyFat client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Body Fat Calculator Works</h2>
+      <p>This tool uses the US Navy circumference method, which estimates body fat percentage from a few tape-measure readings instead of expensive equipment. You provide your height, neck, and waist (plus hips if you are female), and the calculator compares the ratio of these circumferences to established population data. Because fat and muscle distribute differently around the body, these measurements act as a reliable proxy for the amount of fat you carry relative to your frame.</p>
+
+      <h2>The Formula Behind It</h2>
+      <p>For men, body fat percentage is estimated as <code>86.010 × log10(waist − neck) − 70.041 × log10(height) + 36.76</code>. For women the equation adds the hip measurement: <code>163.205 × log10(waist + hip − neck) − 97.684 × log10(height) − 78.387</code>. All measurements are taken in the same unit (centimeters or inches). The logarithmic terms reflect how body fat scales non-linearly with circumference, which is why a small change in waist size can noticeably shift the result.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Once you have a percentage, place it in context. Men in the roughly 10-20% range and women in the roughly 18-28% range are generally considered to be in a fit, healthy zone. Below the essential-fat threshold (about 2-5% for men, 10-13% for women) is risky, while higher percentages are associated with greater metabolic risk. Track the trend over weeks rather than obsessing over a single reading, since hydration, meals, and measurement technique all introduce small fluctuations.</p>
+
+      <h2>When to Use It</h2>
+      <p>The body fat calculator is most useful for monitoring progress during a fat-loss or muscle-building program, where the scale alone can be misleading. It is a convenient, no-cost check-in between more precise assessments like a DEXA scan or bioelectrical impedance. Results are estimates for general information only and should not replace professional assessment; consult a healthcare professional or registered dietitian before making significant changes to your diet or training.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

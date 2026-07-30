@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import SleepCalc from '../components/tools/SleepCalc';
+
+const faq = [
+  { q: "How does the sleep calculator work?", a: "It counts backward or forward in 90-minute sleep cycles. If you need to wake at 6:30 am, it suggests bedtimes that let you complete full cycles, plus about 15 minutes to fall asleep. Waking at the end of a cycle, rather than in the middle of deep sleep, tends to leave you feeling more refreshed." },
+  { q: "Why 90 minutes per cycle?", a: "A typical sleep cycle progresses through light sleep, deep sleep, and REM sleep in roughly 90 minutes, though real cycles range from about 80 to 120 minutes. The calculator uses 90 minutes as a practical average because individual cycle length is hard to measure without a sleep lab." },
+  { q: "How many sleep cycles do I need?", a: "Most adults do well with 5 to 6 complete cycles per night, which is about 7.5 to 9 hours of sleep. Fewer than 5 cycles usually leaves people sleep-deprived over time, while individual needs vary with age and genetics." },
+  { q: "Does the calculator account for time to fall asleep?", a: "Yes. It adds roughly 15 minutes of sleep latency, the average time it takes to drift off. If you consistently fall asleep faster or slower, adjust your target bedtime accordingly." },
+  { q: "Will waking at the end of a cycle guarantee I feel rested?", a: "It improves the odds but is not a guarantee. Sleep quality also depends on total sleep, consistency, caffeine, light exposure, and stress. The cycle timing is one helpful factor among several, not a cure for poor sleep." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Sleep Calculator" description="Find optimal bedtime and wake times by sleep cycles." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Sleep Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Sleep Calculator</h1>
     <SleepCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Sleep Calculator Works</h2>
+      <p>Sleep happens in repeating cycles, and waking up at the end of a cycle feels far better than being jolted awake mid-deep-sleep. This tool works backward from the time you must wake up (or forward from when you plan to sleep) and highlights the bedtimes that let you complete whole cycles. The goal is to align your alarm with the lighter phase at the end of a cycle so you start the day less groggy.</p>
+
+      <h2>The Method Behind It</h2>
+      <p>The calculator models each sleep cycle as roughly <code>90 minutes</code> and assumes about <code>15 minutes</code> to fall asleep. To find a bedtime it applies <code>bedtime = wake time − (cycles × 90 min) − 15 min</code>. For a 6:30 am alarm and 5 cycles, that is <code>6:30 − 450 min − 15 min</code>, or about 10:45 pm. It offers several options (typically 4 to 6 cycles) so you can pick the amount of sleep that fits your night.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Aim for 5 to 6 complete cycles, which corresponds to roughly 7.5 to 9 hours for most adults. If a suggested bedtime has already passed, choose the next option up or accept one fewer cycle. Remember that 90 minutes is an average; your personal cycle length varies slightly night to night, so treat the recommended times as a helpful target rather than an exact prescription.</p>
+
+      <h2>When to Use It</h2>
+      <p>Use the sleep calculator when you have a fixed wake-up time and want to choose a bedtime that minimizes morning grogginess, or when planning naps and shift schedules. Pair it with consistent sleep and wake times, limited evening screen light, and reduced late caffeine for best results. This tool provides general wellness information only and is not medical advice; if you have ongoing insomnia, excessive daytime sleepiness, or a suspected sleep disorder, consult a healthcare professional.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

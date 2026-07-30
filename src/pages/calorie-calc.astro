@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import CalorieCalc from '../components/tools/CalorieCalc';
+
+const faq = [
+  { q: "How are my daily calories calculated?", a: "The tool uses the Mifflin-St Jeor equation to find your Basal Metabolic Rate (BMR), then multiplies it by an activity factor to get your Total Daily Energy Expenditure (TDEE). TDEE is the number of calories you burn in a typical day, including movement and exercise." },
+  { q: "What is the Mifflin-St Jeor formula?", a: "For men, BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5. For women, the final constant is −161 instead of +5. It is considered one of the most accurate general BMR equations for the modern population." },
+  { q: "How many calories should I eat to lose or gain weight?", a: "A rough guide is that a deficit of about 500 calories per day leads to roughly 0.45 kg (1 lb) of fat loss per week, since a pound of fat is about 3,500 calories. To gain weight, eat a similar surplus. Aggressive deficits are harder to sustain and can cost muscle." },
+  { q: "What do the activity levels mean?", a: "Sedentary means little exercise (factor ~1.2), lightly active is light exercise 1-3 days a week (~1.375), moderately active is 3-5 days (~1.55), very active is 6-7 days (~1.725), and extra active is hard daily training or a physical job (~1.9). Choose the one that honestly matches your week." },
+  { q: "How accurate is the estimate?", a: "It is a solid starting point but an estimate. Real energy needs vary with muscle mass, genetics, hormones, and NEAT (non-exercise movement). Track your weight for 2-3 weeks and adjust intake up or down based on the actual trend." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Calorie Calculator" description="Calculate daily calorie needs based on activity level." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Calorie Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Calorie Calculator</h1>
     <CalorieCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Calorie Calculator Works</h2>
+      <p>This calculator estimates how many calories your body needs each day to maintain its current weight. It first works out your Basal Metabolic Rate, the energy you burn at complete rest, then scales that up by how active you are to produce your Total Daily Energy Expenditure (TDEE). Knowing your maintenance number gives you a reference point for eating to lose, maintain, or gain weight.</p>
+
+      <h2>The Formula</h2>
+      <p>The tool uses the Mifflin-St Jeor equation. For men: <code>BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5</code>; for women the last term is <code>− 161</code>. It then applies an activity multiplier from <code>1.2</code> (sedentary) up to <code>1.9</code> (extra active) so that <code>TDEE = BMR × activity factor</code>. A 30-year-old woman at 65 kg and 165 cm who is moderately active would have a BMR near 1,373 and a TDEE near 2,128.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Your TDEE is roughly the calorie intake that keeps your weight stable. To lose weight, eat below it; a deficit of about 500 calories a day targets around 0.45 kg of loss per week. To gain, eat above it by a similar margin. Because the estimate is based on population averages, use it as a launch point and refine it: weigh yourself over a few weeks and adjust intake if the trend does not match your goal.</p>
+
+      <h2>When to Use It</h2>
+      <p>Reach for this calculator when starting a diet or bulk, when your activity level or weight changes noticeably, or when you simply want to understand your energy needs. It pairs well with a macro calculator to break the total into protein, carbs, and fat. These numbers are general estimates for healthy adults, not personalized advice; consult a registered dietitian or healthcare professional before making major dietary changes, especially with medical conditions or during pregnancy.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

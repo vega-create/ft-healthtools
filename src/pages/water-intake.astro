@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import WaterIntake from '../components/tools/WaterIntake';
+
+const faq = [
+  { q: "How is my daily water target calculated?", a: "A common guideline is about 30-35 ml of water per kilogram of body weight per day. For a 70 kg adult that works out to roughly 2.1-2.5 liters. The calculator applies this rate and can add extra for exercise, since you lose fluid through sweat." },
+  { q: "Does all fluid count toward the total?", a: "Yes. Water, tea, coffee, milk, and the water in fruits, vegetables, and soups all contribute to hydration. Food typically supplies around 20% of daily fluid intake. Very sugary or alcoholic drinks are less ideal, but most beverages still count toward your total." },
+  { q: "How much extra should I drink when exercising?", a: "Add roughly 350-700 ml of water for each hour of exercise, more in hot or humid conditions. Weighing yourself before and after a workout helps: each kilogram lost is about a liter of fluid to replace." },
+  { q: "Can I drink too much water?", a: "Yes, though it is uncommon. Drinking extreme amounts in a short time can dilute blood sodium, a dangerous condition called hyponatremia. For nearly everyone, spreading normal intake across the day and drinking to thirst is safe." },
+  { q: "How can I tell if I am well hydrated?", a: "Urine color is a simple indicator: pale straw yellow usually signals good hydration, while dark yellow suggests you need more fluid. Thirst, dry mouth, headache, and fatigue can also be signs of mild dehydration." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Water Intake Calculator" description="Calculate how much water you should drink daily." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Water Intake Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Water Intake Calculator</h1>
     <WaterIntake client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Water Intake Calculator Works</h2>
+      <p>Your body is roughly 60% water and relies on a steady supply to regulate temperature, transport nutrients, and remove waste. This calculator estimates a sensible daily fluid target from your body weight and activity level. Rather than the one-size-fits-all "eight glasses" rule, it scales the recommendation to your size, giving a more personalized starting point for staying hydrated.</p>
+
+      <h2>The Method Behind It</h2>
+      <p>The tool applies a weight-based guideline of about <code>30-35 ml per kg</code> of body weight per day. For a 70 kg adult that is <code>70 × 33 ml ≈ 2.3 liters</code>. It then adds an allowance for exercise, commonly <code>350-700 ml per hour</code> of activity, because sweat losses increase your fluid needs. The result is a total daily target that includes all beverages, not just plain water.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Treat the number as a general daily aim rather than a strict quota. Remember that food, especially fruits and vegetables, supplies around a fifth of your fluids, so you do not need to drink the entire figure as plain water. Climate, illness, pregnancy, breastfeeding, and intense training all raise your needs, while your thirst and urine color are reliable everyday guides to whether you are drinking enough.</p>
+
+      <h2>When to Use It</h2>
+      <p>Use this calculator to set a baseline hydration goal, to plan fluid intake around workouts or hot weather, or simply to build a more consistent drinking habit. Spread your intake across the day rather than gulping large amounts at once. This is general wellness guidance, not medical advice; people with kidney, heart, or liver conditions, or those on fluid restrictions, should follow the specific intake targets set by their healthcare professional.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

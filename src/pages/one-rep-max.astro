@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import OneRepMax from '../components/tools/OneRepMax';
+
+const faq = [
+  { q: "How is one rep max estimated?", a: "The tool uses the Epley formula: 1RM = weight × (1 + reps / 30). If you lift 100 kg for 5 reps, your estimated 1RM is 100 × (1 + 5/30) = 116.7 kg. It converts a comfortable multi-rep set into a projected single maximum lift without you actually attempting that heavy single." },
+  { q: "Which rep range gives the most accurate estimate?", a: "Estimates are most reliable when you use a set of about 2-6 reps taken close to failure. Above roughly 10 reps, fatigue and endurance factors distort the projection, so a 1RM calculated from a 15-rep set will be far less accurate." },
+  { q: "Are there other 1RM formulas?", a: "Yes. The Brzycki formula, 1RM = weight × 36 / (37 − reps), is another popular option, and Lombardi and Lander formulas exist too. Different formulas can vary by a few percent; Epley and Brzycki tend to agree closely in the 1-10 rep range." },
+  { q: "How should I use my estimated 1RM for programming?", a: "Many strength programs prescribe loads as a percentage of 1RM, such as 5 sets of 5 at 80%. Your estimate gives you a starting point for these percentages, which you then adjust based on how the weights actually feel." },
+  { q: "Is it safe to test my true one rep max?", a: "Maximal single-rep attempts carry a higher injury risk and require proper warm-up, technique, and ideally a spotter. Estimating from a submaximal set is a safer way to gauge strength, especially for beginners." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="One Rep Max Calculator" description="Estimate your one rep max from lighter lifts." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">One Rep Max Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">One Rep Max Calculator</h1>
     <OneRepMax client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the One Rep Max Calculator Works</h2>
+      <p>Your one rep max (1RM) is the heaviest weight you can lift for a single repetition of an exercise. Rather than risk a true maximal attempt, this calculator estimates your 1RM from a set you performed with a lighter weight for several reps. You enter the weight lifted and the number of clean reps, and it projects the single-rep maximum. This makes it easy to gauge strength and plan training loads safely.</p>
+
+      <h2>The Formula</h2>
+      <p>The default is the Epley formula: <code>1RM = weight × (1 + reps / 30)</code>. For example, benching 80 kg for 6 reps gives <code>80 × (1 + 6/30) = 96 kg</code>. A close alternative is the Brzycki formula, <code>1RM = weight × 36 / (37 − reps)</code>, which produces very similar numbers in the low-rep range. Both convert submaximal performance into a maximal-strength estimate.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>The estimate is most accurate when drawn from a set of roughly 2 to 6 reps performed close to failure with good form. As reps climb higher, muscular endurance rather than pure strength starts to dominate, and the projection drifts upward from your real max. Use the number as a working reference point, and recalculate periodically as your strength changes rather than treating any single estimate as fixed.</p>
+
+      <h2>When to Use It</h2>
+      <p>A 1RM estimate is the backbone of percentage-based strength programming, where sets are prescribed at, say, 70-85% of your max. It lets you set appropriate loads, track progress, and compare lifts without repeatedly testing under a maximal bar. Results are estimates for general information only; lift within your ability, warm up thoroughly, use a spotter for heavy work, and consult a qualified coach or healthcare professional if you have any injury concerns.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

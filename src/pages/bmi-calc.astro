@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import BmiCalc from '../components/tools/BmiCalc';
+
+const faq = [
+  { q: "How is BMI calculated?", a: "BMI equals your weight in kilograms divided by your height in meters squared: BMI = kg / m². In imperial units the formula is weight in pounds divided by height in inches squared, multiplied by 703. For example, 70 kg at 1.75 m gives 70 / (1.75 × 1.75) = 22.9." },
+  { q: "What do the BMI categories mean?", a: "For adults, a BMI under 18.5 is classified as underweight, 18.5-24.9 as a healthy weight, 25-29.9 as overweight, and 30 or above as obese. These World Health Organization thresholds apply to adults aged 20 and over." },
+  { q: "Is BMI accurate for athletes and muscular people?", a: "Not always. BMI measures weight relative to height, not body composition, so it cannot distinguish muscle from fat. A muscular athlete may register as overweight despite low body fat. It is a population-level screening tool, not a diagnosis of individual health." },
+  { q: "Does BMI work for children or older adults?", a: "Standard adult categories do not apply to children and teens, who are assessed with age- and sex-specific BMI percentiles. In older adults, muscle loss can make BMI underestimate body fat, so it should be interpreted alongside other measures." },
+  { q: "What is a healthy way to use my BMI result?", a: "Treat BMI as a starting point. If your number falls outside the healthy range, pair it with waist circumference and other health markers, and discuss it with a healthcare professional rather than acting on the number alone." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="BMI Calculator" description="Calculate your Body Mass Index." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">BMI Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">BMI Calculator</h1>
     <BmiCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the BMI Calculator Works</h2>
+      <p>Body Mass Index is a simple ratio that relates your weight to your height, giving a single number that screens for underweight, healthy weight, overweight, and obesity. You enter your height and weight, and the calculator returns your BMI along with the category it falls into. Because it needs only two easy-to-measure inputs, BMI has become the most widely used population health indicator worldwide.</p>
+
+      <h2>The Formula</h2>
+      <p>The metric formula is <code>BMI = weight(kg) / height(m)²</code>. If you use pounds and inches, the equivalent is <code>BMI = 703 × weight(lb) / height(in)²</code>. For instance, someone weighing 68 kg at 1.70 m has a BMI of <code>68 / (1.70 × 1.70) = 23.5</code>, which falls in the healthy range. The squared height term is what makes BMI roughly independent of how tall you are.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Adults can read their result against the standard bands: below 18.5 is underweight, 18.5 to 24.9 is a healthy weight, 25 to 29.9 is overweight, and 30 or above is obese. Keep in mind that BMI reflects total weight, not where that weight comes from. Muscular individuals, pregnant women, children, and the elderly are all cases where BMI alone can mislead, so it is best read alongside waist size and other indicators.</p>
+
+      <h2>When to Use It</h2>
+      <p>BMI is most useful as a quick, no-equipment screening check to see whether your weight sits in a generally healthy range, and as a way to track large shifts over time. It is not a diagnostic test. Results are estimates for general information only; if your BMI is outside the healthy range or you have specific concerns, consult a healthcare professional who can assess your body composition and overall health properly.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

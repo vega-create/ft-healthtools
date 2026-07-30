@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import PaceCalc from '../components/tools/PaceCalc';
+
+const faq = [
+  { q: "How is running pace calculated?", a: "Pace is time divided by distance: pace = total time / distance. If you run 10 km in 50 minutes, your pace is 50 / 10 = 5:00 per kilometer. The calculator can also solve for time or distance when you provide the other two values." },
+  { q: "What is the difference between pace and speed?", a: "Pace is time per unit of distance (minutes per km or per mile), while speed is distance per unit of time (km/h or mph). Runners usually think in pace because it directly answers 'how long will this distance take,' whereas speed is more common in cycling and driving." },
+  { q: "How do I convert between min/km and min/mile?", a: "One mile is about 1.609 km, so multiply your min/km pace by 1.609 to get min/mile. A 5:00 min/km pace is about 8:03 min/mile. The calculator handles the conversion automatically when you switch units." },
+  { q: "How can I predict my race finish time?", a: "Multiply your target pace by the race distance. At 5:30 per km over a 42.195 km marathon, the estimate is about 3 hours 52 minutes. Real finish times are usually a bit slower over long distances because pace tends to drift as fatigue sets in." },
+  { q: "What is a good running pace?", a: "It depends entirely on fitness, age, terrain, and goal. Beginners often run easy miles around 6:30-7:30 per km, while experienced runners go faster. The most useful comparison is against your own past times, not other people's." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Running Pace Calculator" description="Calculate running pace, time, or distance." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Running Pace Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Running Pace Calculator</h1>
     <PaceCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Pace Calculator Works</h2>
+      <p>This calculator connects the three variables of any run: pace, time, and distance. Give it any two and it solves for the third. That makes it a flexible planning tool, whether you want to know how fast you were going, how long a training route will take, or how far you can go in a set amount of time. It handles both metric and imperial units so you can work in kilometers or miles.</p>
+
+      <h2>The Formula</h2>
+      <p>The core relationship is <code>pace = time / distance</code>. Rearranged, <code>time = pace × distance</code> and <code>distance = time / pace</code>. For example, covering 8 km in 44 minutes gives <code>44 / 8 = 5:30 per km</code>. To convert between units, one mile equals about <code>1.609 km</code>, so a min/km pace multiplied by 1.609 gives the equivalent min/mile pace.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>A pace figure tells you how many minutes and seconds each kilometer or mile takes at a steady effort. Use it to compare workouts, gauge whether you are running easy or hard, and set realistic targets. Bear in mind that predicted finish times from a short training pace tend to be optimistic for long races, since pace naturally slows with fatigue, hills, heat, and headwinds.</p>
+
+      <h2>When to Use It</h2>
+      <p>Runners use pace calculations to plan interval sessions, set goal race times, split a course into checkpoints, and track improvement over weeks and months. It is equally handy for walkers and cyclists adapting the same time-distance math. This tool provides general fitness information only; if you are new to running, returning from injury, or have a heart or joint condition, check with a healthcare professional before ramping up training intensity.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

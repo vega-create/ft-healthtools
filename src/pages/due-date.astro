@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import DueDate from '../components/tools/DueDate';
+
+const faq = [
+  { q: "How is my due date calculated?", a: "The tool uses Naegele's rule: it adds 280 days (40 weeks) to the first day of your last menstrual period (LMP). This assumes a regular 28-day cycle with ovulation around day 14. Only about 4% of babies actually arrive on the exact due date, but roughly 80% are born within two weeks of it." },
+  { q: "What if my cycle is not 28 days?", a: "Naegele's rule assumes a 28-day cycle. If your cycles are consistently longer or shorter, ovulation happens earlier or later, so your true due date may shift by several days. For irregular cycles, an early dating ultrasound is the most reliable way to establish gestational age." },
+  { q: "Can I calculate a due date from a conception or IVF date?", a: "Yes. If you know your conception date, the due date is roughly 266 days later, because conception occurs about 14 days after the LMP. IVF transfers are dated even more precisely from the embryo's age at transfer, which is why clinics can give a very accurate due date." },
+  { q: "How accurate is an LMP-based due date?", a: "It is a solid estimate for anyone with regular cycles who remembers their LMP clearly, but an ultrasound in the first trimester (before 13 weeks) is more accurate and is often used to confirm or adjust the date." },
+  { q: "What do the pregnancy trimesters mean?", a: "The first trimester runs from week 1 to the end of week 12, the second from week 13 to week 27, and the third from week 28 until birth. A full-term pregnancy is considered 39-40 weeks, with 37-42 weeks being the normal delivery window." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Due Date Calculator" description="Estimate pregnancy due date from last period." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Due Date Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Due Date Calculator</h1>
     <DueDate client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Due Date Calculator Works</h2>
+      <p>Pregnancy is dated from the first day of your last menstrual period (LMP), not from conception, because the LMP is a date most people can pinpoint while ovulation is harder to know. This calculator takes your LMP and projects the expected date of delivery along with your current gestational age in weeks. It gives you a clear timeline for prenatal appointments, screening windows, and simply knowing which trimester you are in.</p>
+
+      <h2>The Formula: Naegele's Rule</h2>
+      <p>The standard method is Naegele's rule: <code>Due date = LMP + 280 days</code>. An equivalent shortcut is to take the first day of your last period, subtract three months, and add seven days and one year. For example, an LMP of March 10 gives a due date of December 17. The 280 days represent 40 weeks, the conventional length of a full-term pregnancy measured from the LMP.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Treat the due date as the middle of a delivery window rather than a fixed deadline. Only a small fraction of babies arrive exactly on the estimated date, but the majority are born within roughly two weeks on either side. Anything from 37 to 42 weeks is considered a normal-term birth. Your provider may adjust the date after an early ultrasound, which measures the baby directly and is more precise than dating from the LMP.</p>
+
+      <h2>When to Use It</h2>
+      <p>Use this calculator as soon as you know your LMP to plan your prenatal care schedule and understand your pregnancy milestones. It is helpful for tracking gestational age between appointments and for anticipating key checkpoints such as the first-trimester screening. Results are estimates for general information only and are not a substitute for medical care; always confirm your due date and pregnancy plan with a doctor or midwife, especially if your cycles are irregular.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

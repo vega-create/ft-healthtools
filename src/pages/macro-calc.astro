@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import MacroCalc from '../components/tools/MacroCalc';
+
+const faq = [
+  { q: "How are my macros calculated?", a: "The tool first estimates your daily calories, then splits them across protein, carbohydrate, and fat using your chosen ratio. Protein and carbs provide about 4 calories per gram and fat about 9, so grams are found by multiplying total calories by each percentage and dividing by that macro's calories per gram." },
+  { q: "What is a good macro split?", a: "A common balanced starting point is roughly 30% protein, 40% carbohydrate, and 30% fat, but the best split depends on your goal. Higher protein suits muscle building and fat loss, higher carbs suit endurance athletes, and lower carb suits some people managing appetite. There is no single correct ratio." },
+  { q: "How much protein do I need?", a: "General guidance for active people is about 1.6 to 2.2 grams of protein per kilogram of body weight per day. Sedentary adults need less, around 0.8 g/kg. Protein supports muscle repair and helps you feel full, which is why it is prioritized in most fitness plans." },
+  { q: "Why does fat have more calories per gram?", a: "Fat contains 9 calories per gram, more than double the 4 calories per gram in protein and carbohydrate (alcohol has 7). This is why small changes in dietary fat have a larger effect on total calories, and why the calculator weights it differently." },
+  { q: "Should I hit my macros exactly every day?", a: "Getting within a reasonable range of your targets consistently matters more than perfection on any single day. Use the numbers as a flexible guide, and adjust based on your energy, performance, hunger, and progress over several weeks." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Macro Calculator" description="Calculate protein, carbs, and fat targets." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Macro Calculator</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Macro Calculator</h1>
     <MacroCalc client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Macro Calculator Works</h2>
+      <p>Macronutrients, or macros, are the three components of food that supply energy: protein, carbohydrate, and fat. This calculator takes your daily calorie target and divides it into gram targets for each macro based on the ratio you select. Tracking macros rather than calories alone helps ensure you get enough protein for muscle, adequate carbs for energy, and sufficient fat for hormone health, all while staying within your calorie budget.</p>
+
+      <h2>The Formula</h2>
+      <p>Each macro's calories are found by multiplying total daily calories by its percentage, then converting to grams using energy density: protein and carbs at <code>4 kcal/g</code> and fat at <code>9 kcal/g</code>. For a 2,000-calorie day at 30/40/30, protein is <code>2000 × 0.30 / 4 = 150 g</code>, carbs are <code>2000 × 0.40 / 4 = 200 g</code>, and fat is <code>2000 × 0.30 / 9 ≈ 67 g</code>.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>Your gram targets are a daily framework, not a strict rulebook. Prioritize hitting your protein goal, since it is the hardest macro to reach and the most important for preserving muscle, then fill the rest of your calories with carbs and fat according to preference and how you feel. Distribute macros across meals in whatever pattern fits your routine; total daily intake matters more than the exact timing.</p>
+
+      <h2>When to Use It</h2>
+      <p>Use the macro calculator when setting up a nutrition plan for fat loss, muscle gain, or general maintenance, and revisit it whenever your weight or activity level changes meaningfully. It pairs naturally with a calorie calculator and a food-tracking app. These figures are general estimates for healthy adults and are not personalized dietary advice; consult a registered dietitian or healthcare professional if you have medical conditions, are pregnant, or have specific clinical nutrition needs.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>

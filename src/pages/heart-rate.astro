@@ -3,13 +3,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
 import AdSense from '../components/AdSense.astro';
 import HeartRate from '../components/tools/HeartRate';
+
+const faq = [
+  { q: "How is my maximum heart rate estimated?", a: "The common estimate is 220 minus your age. For a 40-year-old that is 220 − 40 = 180 beats per minute. It is a population average, so your true maximum can be 10-20 bpm higher or lower. The Tanaka formula, 208 − 0.7 × age, is a newer alternative some prefer for older adults." },
+  { q: "What are the five heart rate zones?", a: "Zones are percentages of your maximum heart rate: Zone 1 (50-60%) very light, Zone 2 (60-70%) light fat-burning, Zone 3 (70-80%) aerobic, Zone 4 (80-90%) anaerobic threshold, and Zone 5 (90-100%) maximal effort. Each zone trains a different aspect of fitness." },
+  { q: "Which zone should I train in?", a: "It depends on your goal. Zone 2 builds aerobic base and endurance and is where most training volume should sit. Zone 4 raises your lactate threshold and race speed, while short bouts in Zone 5 develop peak power. A balanced plan uses mostly easy zones with occasional hard efforts." },
+  { q: "What is the target heart rate for general fitness?", a: "For general cardiovascular health, many guidelines suggest exercising at 50-70% of maximum for moderate activity and 70-85% for vigorous activity. Using the 220 − age estimate, a 40-year-old's moderate zone is roughly 90-126 bpm." },
+  { q: "Should I use a heart rate monitor?", a: "A chest strap or wrist monitor makes zone training far easier and more accurate than counting your pulse manually. Chest straps are generally more accurate than optical wrist sensors, especially during high-intensity intervals." },
+];
 ---
 <BaseLayout>
   <SEO slot="head" title="Heart Rate Zones" description="Calculate target heart rate zones for exercise." />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
   <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="text-sm text-gray-500 mb-6"><a href="/" class="hover:text-primary-600">Home</a> <span class="mx-2">›</span> <span class="text-gray-900">Heart Rate Zones</span></nav>
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Heart Rate Zones</h1>
     <HeartRate client:load />
+
+    <section class="prose prose-slate max-w-none mt-10">
+      <h2>How the Heart Rate Zone Calculator Works</h2>
+      <p>Training by heart rate lets you match your effort to your goal instead of guessing. This calculator estimates your maximum heart rate from your age, then divides the range beneath it into training zones expressed as percentages of that maximum. Each zone corresponds to a different intensity and physiological benefit, from gentle recovery to all-out effort, giving you concrete beats-per-minute targets to aim for during exercise.</p>
+
+      <h2>The Formula</h2>
+      <p>The starting point is <code>maximum heart rate ≈ 220 − age</code>. Target zones are then calculated as a percentage of that figure: for example, a moderate Zone 2 sits at <code>60-70% of HRmax</code>. For a 40-year-old with an estimated HRmax of 180 bpm, Zone 2 is about <code>108-126 bpm</code>. A more individualized approach uses heart rate reserve (HRmax minus resting heart rate), which better accounts for fitness level.</p>
+
+      <h2>Interpreting Your Result</h2>
+      <p>The five zones each serve a purpose: lower zones build aerobic endurance and aid recovery, mid zones improve cardiovascular efficiency, and upper zones raise your threshold and top-end speed. Because the 220 − age formula is only an average, treat the numbers as approximate. If a "moderate" zone feels unexpectedly hard or easy, trust your body and adjust; perceived effort and the ability to hold a conversation are useful reality checks.</p>
+
+      <h2>When to Use It</h2>
+      <p>Use heart rate zones to structure cardio workouts, keep easy days genuinely easy, and ensure hard intervals are hard enough. They are valuable for runners, cyclists, and anyone doing structured endurance training. These are general fitness estimates, not medical advice; if you have heart disease, take medication that affects heart rate, are pregnant, or are new to vigorous exercise, consult a healthcare professional before training at high intensities.</p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        {faq.map(item => (
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{item.q}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <AdSense slot="bottom" />
   </div>
 </BaseLayout>
